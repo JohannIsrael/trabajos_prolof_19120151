@@ -1,0 +1,11 @@
+(defun suma()
+    (princ "Dame un numero: ")
+    (setq num1 (read))
+    (princ "Dame un segundo numero:")
+    (setq num2 (read))
+    (setq resultado '(+ num1 num2)) 
+    ;(write resultado)
+    (eval resultado)
+)
+
+;al poner el ' este deja de evaluar y lo transfroma en una cadena, para evitar eso se ocupa (eval)
