@@ -1,0 +1,26 @@
+variable de individuo:
+
+
+
+constante de individuo:
+
+-el britanico
+-el aleman
+-el danes
+-el sueco
+-el noruego
+
+-el te del danes
+-el prince del aleman
+-el perro del sueco
+-la casa roja del británico
+-la primera casa es del noruego
+-bebe cafe el dueño de la casa verde 
+-
+
+
+
+
+
+
+
