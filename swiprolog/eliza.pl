@@ -28,13 +28,15 @@ template([hola, ',', mi, nombre, es, s(_), '.'], ['Hola', 0, 'Como', estas, tu, 
 
 template([buendia, ',', mi, nombre, es, s(_), '.'], ['Buendia', 'Como', estas, tu, 0, '?'], [5]).
 
-template([hola, _], ['Hola', 'como', estas, tu, '?'], []).
 
 template([buendia, _], ['Buendia', 'Como', estas, tu, '?'], []).
 
 template([yo, s(_), yo, soy, s(_),'.'], [por, que, 0, eres, 1, '?'], [1, 4]).
 template([yo, s(_), tu, '.'], [why, do, you, 0, me ,'?'], [1]).
 template([yo, soy, s(_),'.'], [porque, eres, tu, 0, '?'], [2]).
+
+template([hola, _], ['Hola', 'como', estas, tu, '?'], []).
+
 
 % pregunta algo que le gusta a eliza
 template([te, gustan, las, s(_), _], [flagLike], [3]).
@@ -85,7 +87,7 @@ is0(nice).
 is0(fine).
 is0(happy).
 is0(redundant).
-is0(robot)
+is0(robot).
 
 match([],[]).
 match([], _):- true.
