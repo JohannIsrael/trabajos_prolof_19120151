@@ -4,7 +4,7 @@
 
 
 <h2 style="color:orange">Área y volumen de 10 figuras </h2>
-<p>Funciones para calcular el área y volumen de 20 figuras</p>
+<p>Funciones para calcular el área y volumen de 10 figuras</p>
 
 ``` lisp
 ;Figura 1
