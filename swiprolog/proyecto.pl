@@ -60,7 +60,7 @@ template([los, s(_), son, un, sintoma, del, cancer, de, tiroides, _],[sintoma],[
 template([los, sintomas, que, tengo, son, x(_),',', y(_),'y',z(_),_],[multisintomas],[5,7,9]).
 
 %complicaciones
-template([cuales, son, las, compliaciones, del, cancer, de, tiroides,_], ['Cancer de tiroides recurrente\n
+template([cuales, son, las, complicaciones, del, cancer, de, tiroides,_], ['Cancer de tiroides recurrente\n
 En la mayoria de los casos, es poco probable que el cancer de tiroides vuelva a aparecer, incluidos los tipos mas comunes, como el papilar y el folicular. Tu proveedor de atencion medica puede decirte si el tipo de cancer que tienes presenta un mayor riesgo de recurrencia segun sus caracteristicas particulares.
 
 La recurrencia es mas probable si el tipo de cancer es agresivo o si se propaga fuera de la tiroides. Cuando se produce la recurrencia del cancer de tiroides, por lo general se descubre en los primeros cinco años despues del diagnostico inicial.
@@ -73,7 +73,8 @@ El cancer de tiroides a veces se disemina a ganglios linfaticos cercanos o a otr
 template(['cuales',son, los, factores, de, riesgo, del, cancer, de, tiroides, _], ['Los factores de riegos del cancer de tiroides son: ', Factor_riesgo],[]) :-
     findall(Factor, factor_riesgo0(Factor), Factor_riesgos),
     atomic_list_concat(Factor_riesgos, ', ', Factor_riesgo). 
-template([por, que, s(_), es, un, factor, de, riesgo, _],[factor_riesgo],[2]).
+template([por, que, el, s(_), es, un, factor, de, riesgo, _],[factor_riesgo],[3]).
+template([por, que, la, s(_), es, un, factor, de, riesgo, _],[factor_riesgo],[3]).
 
 %prevencion
 template([que, medidas, de, prevencion,hay, para, el, cancer, de, tiroides, _],['Los medicos no saben con certeza que hace que cambien los genes que provocan la mayoria de los canceres de tiroides, por lo que no existe manera de prevenir este tipo de cancer en las personas con un riesgo promedio de tenerlo.\n
@@ -102,7 +103,7 @@ template([que, es, smite, _],['Es un videojuego de accion MOBA en tercera person
 
 template([en, que, consiste, el, juego, de, smite, _],['Smite es un videojuego de accion MOBA, en el posee diferentes modalidades de juego, ¿sobre que modalidad te gustaria saber? Pregunta: quiero saber sobre el modo de juego __ .'],[]).
 
-template([cual, es, el, nivel, maximo, de, jugador, por, partida, _],['El nivel maximo que puede llegar a un jugador por partida es el lvl 20'],[]).
+template([cual, es, el, nivel, maximo, de, un,jugador, por, partida, _],['El nivel maximo que puede llegar a un jugador por partida es el lvl 20'],[]).
 
 template([como, se, clasifican, los, dioses, _],['Los dioses se clasifican por su region, por ejemplo puede ser el ',ListaTiposDioses],[]):- findall(TipoDios,tiposDioses(TipoDios), ListaTiposDioses).
 
@@ -220,7 +221,7 @@ sintoma(hinchazon_en_ganglios).
 %Factores de riesgo
 factorRiesgoR(X,R,Y):- factor_desc0(X,Y), R = [X,'es factor de riesgo porque:',Y].
 factorRiesgoR(X,R,Y):- \+factor_desc0(X,Y), R = [X,'no es factor de riesgo'].
-factor_desc0('sexo_femenimo','El cancer de la glandula tiroidea es mas frecuente en las mujeres que en los hombres. Los expertos creen que esto puede estar relacionado con la hormona estrogeno').
+factor_desc0('sexo_femenino','El cancer de la glandula tiroidea es mas frecuente en las mujeres que en los hombres. Los expertos creen que esto puede estar relacionado con la hormona estrogeno').
 factor_desc0('exposicion_a_radiacion','Los tratamientos de radioterapia en la cabeza y el cuello aumentan el riesgo de cancer de la glandula tiroidea.').
 factor_desc0('sindromes_geneticos','Los sindromes geneticos que aumentan el riesgo de cancer de la glandula tiroidea incluyen el cancer medular de tiroides de tipo hereditario, la neoplasia endocrina multiple, el sindrome de Cowden y la poliposis adenomatosa familiar').
 factor_riesgo0(exposicion_a_radiacion).
@@ -276,28 +277,28 @@ rol(guerrero).
 
 modalidadesR(X,R,Y):- modalidad(X,Y), R=['La modalidad de ',X, ':', Y].
 modalidadesR(X,R,Y):- \+modalidad(X,Y), R=['La modalidad ',X, 'no pertenece al juego de smite'].
-modalidad('arena','La modalidad Arena en Smite es un enfrentamiento entre dos equipos de cinco jugadores en un campo de batalla pequeño y sin estructuras defensivas, donde el objetivo es reducir los "tickets" del equipo contrario. Los jugadores ganan puntos eliminando esbirros, derrotando enemigos y realizando objetivos específicos. Es un modo de juego rápido y frenético, enfocado en combates directos y habilidades individuales, sin la presencia de torres o estructuras defensivas a proteger, lo que lo hace ideal para enfrentamientos constantes y peleas intensas.').
-modalidad('conquista','El modo "estándar" del juego. Dos equipos de 5 jugadores colocados en dos bases opuestas conectadas por Tres Carriles (Izquierdo, Derecho y Medio), protegidos por dos Torres y un Fénix.
+modalidad('arena','La modalidad Arena en Smite es un enfrentamiento entre dos equipos de cinco jugadores en un campo de batalla pequeño y sin estructuras defensivas, donde el objetivo es reducir los "tickets" del equipo contrario. Los jugadores ganan puntos eliminando esbirros, derrotando enemigos y realizando objetivos especificos. Es un modo de juego rapido y frenetico, enfocado en combates directos y habilidades individuales, sin la presencia de torres o estructuras defensivas a proteger, lo que lo hace ideal para enfrentamientos constantes y peleas intensas.').
+modalidad('conquista','El modo "estandar" del juego. Dos equipos de 5 jugadores colocados en dos bases opuestas conectadas por Tres Carriles (Izquierdo, Derecho y Medio), protegidos por dos Torres y un Fenix.
 
-Este titán posee un gran poder y requiere un trabajo en equipo para poder ser destruido. Con cada estructura destruida el Titán se hará más débil, pero con buen trabajo en equipo y coordinación, se puede lograr la victoria.
-Este modo se caracteriza por ser un mapa de tres carriles rodeado por un área de jungla. Tu base es defendida por tres Fénix y un Titán, ubicado en un lado del mapa. La base de tu enemigo está al otro lado del mapa.').
-modalidad('justa','Este modo se caracteriza por tener un solo carril en el mapa y una jungla lateral. Tu base es defendida por un Fénix y un Titán, ubicada en un lado del mapa. La base de tu enemigo está al otro lado del mapa.').
-modalidad('clash','Este modo tiene como característica un mapa de dos carriles con una pequeña jungla y un campamento en el centro. Tu base, defendida por dos torres, dos Fénix y un Titán, se ubica en un extremo. La base de tu enemigo se ubica al otro extremo del mapa.').
-modalidad('asalto','Versión Cooperativa de Asalto, donde 5 jugadores son enfrentado contra 5 bots. En este mapa todos los jugadores tienen dioses elegidos al azar, solo hay un carril con 2 torres, 1 fénix y el Titán en cada lado y sin junglas laterales. El objetivo principal es destruir el titán enemigo. A diferencia de otros modos, no hay forma de regresar a tu base, por lo que es imposible comprar más objetos o restaurar tu vida/mana a menos que mueras. En este modo tampoco es posible comprar ciertos objetos que den ventajas por matar súbditos.').
-modalidad('modalidad_del_dia','Esta modalidad cambia cada día y consiste en partidas rápidas ajustando las mecánicas normales de los modos de juego.
+Este titan posee un gran poder y requiere un trabajo en equipo para poder ser destruido. Con cada estructura destruida el Titan se hara mas debil, pero con buen trabajo en equipo y coordinacion, se puede lograr la victoria.
+Este modo se caracteriza por ser un mapa de tres carriles rodeado por un area de jungla. Tu base es defendida por tres Fenix y un Titan, ubicado en un lado del mapa. La base de tu enemigo esta al otro lado del mapa.').
+modalidad('justa','Este modo se caracteriza por tener un solo carril en el mapa y una jungla lateral. Tu base es defendida por un Fenix y un Titan, ubicada en un lado del mapa. La base de tu enemigo esta al otro lado del mapa.').
+modalidad('clash','Este modo tiene como caracteristica un mapa de dos carriles con una pequeña jungla y un campamento en el centro. Tu base, defendida por dos torres, dos Fenix y un Titan, se ubica en un extremo. La base de tu enemigo se ubica al otro extremo del mapa.').
+modalidad('asalto','Version Cooperativa de Asalto, donde 5 jugadores son enfrentado contra 5 bots. En este mapa todos los jugadores tienen dioses elegidos al azar, solo hay un carril con 2 torres, 1 fenix y el Titan en cada lado y sin junglas laterales. El objetivo principal es destruir el titan enemigo. A diferencia de otros modos, no hay forma de regresar a tu base, por lo que es imposible comprar mas objetos o restaurar tu vida/mana a menos que mueras. En este modo tampoco es posible comprar ciertos objetos que den ventajas por matar subditos.').
+modalidad('modalidad_del_dia','Esta modalidad cambia cada dia y consiste en partidas rapidas ajustando las mecanicas normales de los modos de juego.
 
-Entre las más populares son:
+Entre las mas populares son:
 
 Omnipotencia: Mapa conquista todos con 10k de oro con nivel 1.
-Dogball: Modo arena, pero todos los juegadores juegan con la diosa Nox, en el cuál solo pueden usar la habilidad 1 y la ulti.').
+Dogball: Modo arena, pero todos los juegadores juegan con la diosa Nox, en el cual solo pueden usar la habilidad 1 y la ulti.').
 
 rolesDescR(X,R,Y):- rolDesc(X,Y), R=['El rol de ',X,'se caracteriza porque:',Y].
 rolesDescR(X,R,Y):- \+rolDesc(X,Y), R=['El rol de ',X,'no pertenece al juego de smite'].
-rolDesc(asesino,'Son ágiles y se especializan en eliminar a los enemigos rápidamente. Suelen ser sigilosos y tienen grandes habilidades para dañar y escapar').
+rolDesc(asesino,'Son agiles y se especializan en eliminar a los enemigos rapidamente. Suelen ser sigilosos y tienen grandes habilidades para dañar y escapar').
 rolDesc(guardian,'Son los tanques del juego, con alta resistencia y habilidades para proteger a su equipo. Se destacan por su capacidad para absorber daño y controlar el campo de batalla.').
-rolDesc(cazador,'Se enfocan en el daño a distancia. Son conocidos por su poder de ataque y precisión, a menudo desplegando gran daño enemigo desde lejos.').
-rolDesc(mago,'Utilizan poderes mágicos para infligir daño a gran escala. Suelen tener habilidades de área efectivas para controlar el campo de batalla.').
-rolDesc(guerrero,'Son una combinación de resistencia y daño cuerpo a cuerpo. Pueden aguantar y enfrentarse en combate cercano, siendo versátiles en el campo de batalla.').
+rolDesc(cazador,'Se enfocan en el daño a distancia. Son conocidos por su poder de ataque y precision, a menudo desplegando gran daño enemigo desde lejos.').
+rolDesc(mago,'Utilizan poderes magicos para infligir daño a gran escala. Suelen tener habilidades de area efectivas para controlar el campo de batalla.').
+rolDesc(guerrero,'Son una combinacion de resistencia y daño cuerpo a cuerpo. Pueden aguantar y enfrentarse en combate cercano, siendo versatiles en el campo de batalla.').
 
 tiposDioses(griegos).
 tiposDioses(nordicos).
@@ -321,7 +322,7 @@ ejemplosTipodios(celtas,'').
 ejemplosTipodios(vudu,'').
 ejemplosTipodios(japones,'').
 
-dios(ares).
+%dios(ares).
 dios(ah_muzen_cab).
 dios(ah_puch).
 dios(amaterasu).

@@ -31,7 +31,7 @@ Para poder consultar los diferentes temas de manera correcta basta con realizar 
 
     - cuales son las causas del cancer de tiroides ?
 
-#### Sintomas
+#### Diagnosticos
 
     - que diagnosticos hay para el cancer de tiroides con su descripcion ?
     - que diagnosticos hay para el cancer de tiroides ? 
@@ -60,7 +60,7 @@ Para poder consultar los diferentes temas de manera correcta basta con realizar 
 
     
     - cuales son los factores de riesgo del cancer de tiroides ?
-    - por que __ es un factor de riesgo ?
+    - por que el/la __ es un factor de riesgo ?
 
 #### Medidas de Prevención
 
