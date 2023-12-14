@@ -118,6 +118,8 @@ template([los, dioses, x(_),',',y(_),'y',z(_), estan, dentro, del, juego, de, sm
 
 template([cuales, son, los, roles, de, smite, _],['Los roles que hay en el juego de smite son: ',ListaRoles],[]):- findall(Rol,rol(Rol),ListaRoles).
 
+template([en, que, se, caracteriza, el, rol, de, s(_),_],[roles],[7]).
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% templates de eliza %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -267,10 +269,10 @@ modos(modalidad_del_dia).
 modos(clash).
 
 rol(asesino).
-rol(guardina).
+rol(guardian).
 rol(cazador).
-rol(magos).
-rol(guerreros).
+rol(mago).
+rol(guerrero).
 
 modalidadesR(X,R,Y):- modalidad(X,Y), R=['La modalidad de ',X, ':', Y].
 modalidadesR(X,R,Y):- \+modalidad(X,Y), R=['La modalidad ',X, 'no pertenece al juego de smite'].
@@ -289,6 +291,13 @@ Entre las más populares son:
 Omnipotencia: Mapa conquista todos con 10k de oro con nivel 1.
 Dogball: Modo arena, pero todos los juegadores juegan con la diosa Nox, en el cuál solo pueden usar la habilidad 1 y la ulti.').
 
+rolesDescR(X,R,Y):- rolDesc(X,Y), R=['El rol de ',X,'se caracteriza porque:',Y].
+rolesDescR(X,R,Y):- \+rolDesc(X,Y), R=['El rol de ',X,'no pertenece al juego de smite'].
+rolDesc(asesino,'Son ágiles y se especializan en eliminar a los enemigos rápidamente. Suelen ser sigilosos y tienen grandes habilidades para dañar y escapar').
+rolDesc(guardian,'Son los tanques del juego, con alta resistencia y habilidades para proteger a su equipo. Se destacan por su capacidad para absorber daño y controlar el campo de batalla.').
+rolDesc(cazador,'Se enfocan en el daño a distancia. Son conocidos por su poder de ataque y precisión, a menudo desplegando gran daño enemigo desde lejos.').
+rolDesc(mago,'Utilizan poderes mágicos para infligir daño a gran escala. Suelen tener habilidades de área efectivas para controlar el campo de batalla.').
+rolDesc(guerrero,'Son una combinación de resistencia y daño cuerpo a cuerpo. Pueden aguantar y enfrentarse en combate cercano, siendo versátiles en el campo de batalla.').
 
 tiposDioses(griegos).
 tiposDioses(nordicos).
@@ -387,6 +396,7 @@ dios(nike).
 dios(nox).
 dios(nu_wa).
 dios(odin).
+dios(loki).
 dios(olorun).
 dios(oseiros).
 dios(pele).
@@ -557,3 +567,10 @@ replace0([I,J,K|_],Input,_,Resp, R):-
 	nth0(0, Resp, Z),
 	Z == dioses,
 	diosesR(Atom1, Atom2, Atom3, R).
+
+%definicion de una modalidad
+replace0([I|_], Input, _, Resp, R):-
+	nth0(I, Input, Atom),
+	nth0(0, Resp, X),
+	X == roles,
+	rolesDescR(Atom, R, _).
