@@ -28,6 +28,7 @@ template([hola, ',', mi, nombre, es, s(_), '.'], ['Hola','!',',', 0, 'Como', est
 template([buenas, _], ['Hola','!', ',' , 'Como', estas, tu, '?'], []).
 template([yo, s(_), yo, soy, s(_),'.'], [por, que, 0, eres, 1, '?'], [1, 4]).
 template([yo, soy, s(_),'.'], [porque, eres, tu, 0, '?'], [2]).
+template([conoces, acerca, de, s(_), _], [flagKnowledge], [3]).
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%templates de enfermedad %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -95,6 +96,30 @@ template([que, es, el, cancer, de, tiroides, _], ['Es una proliferacion de celul
 
 template([cancer, de, tiroides], ['El cancer de tiroides es una proliferacion de celulas que comienza en la glandula tiroidea, una glandula en forma de mariposa que se encuentra en la base del cuello, justo debajo de la nuez de Adan. La glandula tiroidea produce hormonas que regulan el ritmo cardiaco, la presion arterial, la temperatura corporal y el peso.'], []).
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%templates de smite %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+template([que, es, smite, _],['Es un videojuego de accion MOBA en tercera persona, creado y publicado por Hi-Rez Studios para Microsoft Windows, Xbox One, PlayStation 4 y Nintendo Switch. El juego se basa en dos equipos, cada uno formado por cinco dioses, enfrentados en un campo de batalla con la finalidad de destruir el titan enemigo situado en cada una de las bases.'],[]).
+
+template([en, que, consiste, el, juego, de, smite, _],['Smite es un videojuego de accion MOBA, en el posee diferentes modalidades de juego, ¿sobre que modalidad te gustaria saber? Pregunta: quiero saber sobre el modo de juego __ .'],[]).
+
+template([cual, es, el, nivel, maximo, de, jugador, por, partida, _],['El nivel maximo que puede llegar a un jugador por partida es el lvl 20'],[]).
+
+template([como, se, clasifican, los, dioses, _],['Los dioses se clasifican por su region, por ejemplo puede ser el ',ListaTiposDioses],[]):- findall(TipoDios,tiposDioses(TipoDios), ListaTiposDioses).
+
+template([cuantos, dioses, hay, en, el, juego, _], ['Actualmente en mi base de datos tengo registrados ', CountDioses, ' dioses en el juego de smite'], []) :-
+    findall(Dios, dios(Dios), Dioses),
+    length(Dioses, CountDioses).
+
+template([quiero, saber, sobre, el, modo, de, juego, s(_), _],[modalidades],[7]).
+
+template([cuales, son, los, modos, del, juego, de, smite, _],['Los modos de juego de smite que hay actualmente son: ',Modosjuego],[]):- findall(Modojuego, modos(Modojuego), Modosjuego).
+
+template([los, dioses, x(_),',',y(_),'y',z(_), estan, dentro, del, juego, de, smite, _],[dioses],[2,4,6]).
+
+template([cuales, son, los, roles, de, smite, _],['Los roles que hay en el juego de smite son: ',ListaRoles],[]):- findall(Rol,rol(Rol),ListaRoles).
+
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% templates de eliza %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
@@ -107,21 +132,17 @@ template([como, estas, tu, '?'], [yo, estoy, bien, ',', gracias, por, preguntar,
 template([yo, pienso, que, _], [bueno, esa, es, tu, opinion], []).
 template([porque, _], [esa, no, es, una, buena, razon, '.'], []).
 template([por,favor, s(_), _], ['No', no, puedo, ayudarte, ',', yo, soy, solo, una, maquina], []). 
-
 template([hola, _], ['Hola', 'como', estas, tu, '?'], []).	  
 template(_, ['Por',favor, explicame, un, poco, mas, '.'], []). 
 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% hechos y reglas de eliza %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% Lo que le gusta a eliza : flagLike
-elizaLikes(X, R):- likes(X), R = ['Si', me, gusta, X].
-elizaLikes(X, R):- \+likes(X), R = ['No', no, me, gustan, X].
-likes(apples).
-likes(ponies).
-likes(zombies).
-likes(manzanas).
-likes(computadoras).
-like(carros).
+% Lo que conoce eliza
+elizaKnowledge(X, R):- knowledge(X), R = ['Si si conozco acerca',de, X].
+elizaKnowledge(X, R):- \+knowledge(X), R = ['No no conozco acerca', X].
+knowledge(smite).
+knowledge(cancer_de_tiroides).
 
 % lo que hace eliza: flagDo
 elizaDoes(X, R):- does(X), R = ['Si', yo, X, and, me, encanta, hacerlo].
@@ -236,6 +257,179 @@ especialista0(endocrinologo).
 especialista0(oncologo_radioterapia).
 especialista0(oncologo_clinico).
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% hechos y reglas de smite %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+modos(arena).
+modos(conquista).
+modos(asalto).
+modos(justa).
+modos(modalidad_del_dia).
+modos(clash).
+
+rol(asesino).
+rol(guardina).
+rol(cazador).
+rol(magos).
+rol(guerreros).
+
+modalidadesR(X,R,Y):- modalidad(X,Y), R=['La modalidad de ',X, ':', Y].
+modalidadesR(X,R,Y):- \+modalidad(X,Y), R=['La modalidad ',X, 'no pertenece al juego de smite'].
+modalidad('arena','La modalidad Arena en Smite es un enfrentamiento entre dos equipos de cinco jugadores en un campo de batalla pequeño y sin estructuras defensivas, donde el objetivo es reducir los "tickets" del equipo contrario. Los jugadores ganan puntos eliminando esbirros, derrotando enemigos y realizando objetivos específicos. Es un modo de juego rápido y frenético, enfocado en combates directos y habilidades individuales, sin la presencia de torres o estructuras defensivas a proteger, lo que lo hace ideal para enfrentamientos constantes y peleas intensas.').
+modalidad('conquista','El modo "estándar" del juego. Dos equipos de 5 jugadores colocados en dos bases opuestas conectadas por Tres Carriles (Izquierdo, Derecho y Medio), protegidos por dos Torres y un Fénix.
+
+Este titán posee un gran poder y requiere un trabajo en equipo para poder ser destruido. Con cada estructura destruida el Titán se hará más débil, pero con buen trabajo en equipo y coordinación, se puede lograr la victoria.
+Este modo se caracteriza por ser un mapa de tres carriles rodeado por un área de jungla. Tu base es defendida por tres Fénix y un Titán, ubicado en un lado del mapa. La base de tu enemigo está al otro lado del mapa.').
+modalidad('justa','Este modo se caracteriza por tener un solo carril en el mapa y una jungla lateral. Tu base es defendida por un Fénix y un Titán, ubicada en un lado del mapa. La base de tu enemigo está al otro lado del mapa.').
+modalidad('clash','Este modo tiene como característica un mapa de dos carriles con una pequeña jungla y un campamento en el centro. Tu base, defendida por dos torres, dos Fénix y un Titán, se ubica en un extremo. La base de tu enemigo se ubica al otro extremo del mapa.').
+modalidad('asalto','Versión Cooperativa de Asalto, donde 5 jugadores son enfrentado contra 5 bots. En este mapa todos los jugadores tienen dioses elegidos al azar, solo hay un carril con 2 torres, 1 fénix y el Titán en cada lado y sin junglas laterales. El objetivo principal es destruir el titán enemigo. A diferencia de otros modos, no hay forma de regresar a tu base, por lo que es imposible comprar más objetos o restaurar tu vida/mana a menos que mueras. En este modo tampoco es posible comprar ciertos objetos que den ventajas por matar súbditos.').
+modalidad('modalidad_del_dia','Esta modalidad cambia cada día y consiste en partidas rápidas ajustando las mecánicas normales de los modos de juego.
+
+Entre las más populares son:
+
+Omnipotencia: Mapa conquista todos con 10k de oro con nivel 1.
+Dogball: Modo arena, pero todos los juegadores juegan con la diosa Nox, en el cuál solo pueden usar la habilidad 1 y la ulti.').
+
+
+tiposDioses(griegos).
+tiposDioses(nordicos).
+tiposDioses(egipcios).
+tiposDioses(chinos).
+tiposDioses(hindues).
+tiposDioses(mayas).
+tiposDioses(romanos).
+tiposDioses(celtas).
+tiposDioses(vudu).
+tiposDioses(japones).
+
+ejemplosTipodios(griegos,'').
+ejemplosTipodios(nordicos,'').
+ejemplosTipodios(egipcios,'').
+ejemplosTipodios(chinos,'').
+ejemplosTipodios(hindues,'').
+ejemplosTipodios(mayas,'').
+ejemplosTipodios(romanos,'').
+ejemplosTipodios(celtas,'').
+ejemplosTipodios(vudu,'').
+ejemplosTipodios(japones,'').
+
+dios(ares).
+dios(ah_muzen_cab).
+dios(ah_puch).
+dios(amaterasu).
+dios(anhur).
+dios(anubis).
+dios(ao_kuang).
+dios(aphrodite).
+dios(apollo).
+dios(arachne).
+dios(ares).
+dios(artemis).
+dios(athena).
+dios(awilix).
+dios(baba_yaga).
+dios(bacchus).
+dios(bakasura).
+dios(baron_samedi).
+dios(bastet).
+dios(bellona).
+dios(cabrakan).
+dios(camazotz).
+dios(cernunnos).
+dios(chaac).
+dios(chang_e).
+dios(charybdis).
+dios(chernobog).
+dios(chiron).
+dios(chronos).
+dios(cu_chulainn).
+dios(cupid).
+dios(da_ji).
+dios(danzaburou).
+dios(discordia).
+dios(erlang_shen).
+dios(fafnir).
+dios(fenrir).
+dios(freya).
+dios(ganesha).
+dios(geb).
+dios(guan_yu).
+dios(hachiman).
+dios(hades).
+dios(he_bo).
+dios(heimdallr).
+dios(hera).
+dios(hercules).
+dios(horus).
+dios(hou_yi).
+dios(hun_batz).
+dios(isis).
+dios(izanami).
+dios(jade_emperor_s_crown).
+dios(janus).
+dios(jing_wei).
+dios(jormungandr).
+dios(kali).
+dios(khepri).
+dios(khumbakarna).
+dios(kukulkan).
+dios(kumbhakarna).
+dios(kuzenbo).
+dios(little_red_scylla).
+dios(medusa).
+dios(mercury).
+dios(merlin).
+dios(morrigan).
+dios(mulan).
+dios(ne_zha).
+dios(neith).
+dios(nemesis).
+dios(nike).
+dios(nox).
+dios(nu_wa).
+dios(odin).
+dios(olorun).
+dios(oseiros).
+dios(pele).
+dios(poseidon).
+dios(ra).
+dios(rama).
+dios(ravana).
+dios(roma).
+dios(sam_odes).
+dios(san_dro).
+dios(sele_ne).
+dios(serket).
+dios(set).
+dios(skadi).
+dios(sobek).
+dios(sol).
+dios(sun_wukong).
+dios(susano).
+dios(sylvanus).
+dios(tchernobog).
+dios(thanatos).
+dios(the_morrigan).
+dios(thor).
+dios(thoth).
+dios(tyr).
+dios(uchida_izumo).
+dios(ullr).
+dios(vamana).
+dios(vulcan).
+dios(xbalanque).
+dios(xing_tian).
+dios(yemoja).
+dios(ymir).
+dios(zhong_kui).
+
+%identifica 3 dioses
+diosesR(X, Y, Z, R) :-
+    (dios(X), dios(Y), dios(Z)) ->
+    R = ['Si los', X, Y, 'y', Z, 'pertenecen al catalogo de dioses del juego de smite'];
+    ( \+dios(X), \+dios(Y), \+dios(Z)) ->
+    R = ['Los', X, Y, 'y', Z, 'no pertenecen al catalogo de dioses del juego de smite'];
+    R = ['Al menos uno de los dioses', X, Y, 'o', Z, 'pertenece  al catalogo de dioses del juego de smite'].
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% logica para match de eliza %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -256,12 +450,12 @@ match([S|Stim],[_|Input]) :-
 
 replace0([], _, _, Resp, R):- append(Resp, [], R),!.
 
-% Eliza likes:
+% Eliza knowledge:
 replace0([I|_], Input, _, Resp, R):-
 	nth0(I, Input, Atom),
 	nth0(0, Resp, X),
-	X == flagLike,
-	elizaLikes(Atom, R).
+	X == flagKnowledge,
+	elizaKnowledge(Atom, R).
 
 % Eliza does:
 replace0([I|_], Input, _, Resp, R):-
@@ -342,3 +536,24 @@ replace0([I|_], Input, _, Resp, R):-
     X == factor_riesgo,
     factorRiesgoR(Atom, R, _).
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% replace de smite %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%definicion de una modalidad
+replace0([I|_], Input, _, Resp, R):-
+	nth0(I, Input, Atom),
+	nth0(0, Resp, X),
+	X == modalidades,
+	modalidadesR(Atom, R, _).
+
+%identifica 3 dioses
+replace0([I,J,K|_],Input,_,Resp, R):-
+	nth0(I, Input, Atom1),
+	nth0(0, Resp, X),
+	X == dioses,
+	nth0(J, Input, Atom2),
+	nth0(0, Resp, Y),
+	Y == dioses,
+	nth0(K, Input, Atom3),
+	nth0(0, Resp, Z),
+	Z == dioses,
+	diosesR(Atom1, Atom2, Atom3, R).
